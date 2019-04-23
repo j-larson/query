@@ -72,7 +72,8 @@ func (this systemRemoteStub) Enabled(capability Capability) bool {
 	return true
 }
 
-// change settings
-func (this systemRemoteStub) Settings(setting map[string]interface{}) errors.Error {
-	return nil
+// Update TLS or node-to-node encryption settings.
+func (this systemRemoteStub) SetConnectionSecurityConfig(certFile string, encryptNodeToNodeComms bool) {
+	// Do nothing.
 }
+

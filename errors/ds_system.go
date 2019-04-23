@@ -93,3 +93,8 @@ func NewSystemNoBuckets() Error {
 		InternalMsg:    "The system namespace contains no buckets that contain scopes.",
 		InternalCaller: CallerN(1)}
 }
+
+func NewSystemRemoteNotReadyError() Error {
+	return &err{level: EXCEPTION, ICode: 11014, IKey: "datastore.system.remote.notready", 
+		InternalMsg: "System remote has not been initialized with communication paramters.", InternalCaller: CallerN(1)}
+}

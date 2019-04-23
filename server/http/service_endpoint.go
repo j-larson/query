@@ -23,6 +23,7 @@ import (
 	"github.com/couchbase/query/accounting"
 	"github.com/couchbase/query/audit"
 	"github.com/couchbase/query/datastore"
+	"github.com/couchbase/query/distributed"
 	"github.com/couchbase/query/errors"
 	"github.com/couchbase/query/execution"
 	"github.com/couchbase/query/logging"
@@ -52,8 +53,6 @@ const (
 	servicePrefix = "/query/service"
 )
 
-var _ENDPOINT *HttpEndpoint
-
 func NewServiceEndpoint(srv *server.Server, staticPath string, metrics bool,
 	httpAddr, httpsAddr, certFile, keyFile string) *HttpEndpoint {
 	rv := &HttpEndpoint{
@@ -76,7 +75,6 @@ func NewServiceEndpoint(srv *server.Server, staticPath string, metrics bool,
 
 	rv.setupSSL()
 	rv.registerHandlers(staticPath)
-	_ENDPOINT = rv
 	return rv
 }
 
@@ -265,6 +263,8 @@ func (this *HttpEndpoint) setupSSL() {
 			} else {
 				sds.SetConnectionSecurityConfig(&(this.connSecConfig))
 			}
+			distributed.RemoteAccess().SetConnectionSecurityConfig(this.connSecConfig.CertFile,
+				this.connSecConfig.ClusterEncryptionConfig.EncryptData)
 		}
 		return nil
 	})

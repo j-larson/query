@@ -55,8 +55,6 @@ type Indexer interface {
 	MetadataVersion() uint64                                    // Meta data change counter
 	SetLogLevel(level logging.Level)                            // Set log level for in-process logging
 
-	// Comment out the new method so GSI and FTS get access to ConnectionSecurityConfig
-	// without breaking the build.
 	SetConnectionSecurityConfig(connSecConfig *ConnectionSecurityConfig) // Update TLS or node-to-node encryption settings.
 }
 
@@ -398,7 +396,6 @@ type IndexStorageMode string
 const (
 	INDEX_MODE_MOI    IndexStorageMode = "MOI"
 	INDEX_MODE_PLASMA IndexStorageMode = "PLASMA"
-	INDEX_MODE_FDB    IndexStorageMode = "FDB" // legacy forest db
 )
 
 type Index4 interface {

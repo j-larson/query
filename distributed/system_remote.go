@@ -50,8 +50,8 @@ type SystemRemoteAccess interface {
 	// is a specific feature available in all clusters?
 	Enabled(capability Capability) bool
 
-	// dynamically change settings
-	Settings(settings map[string]interface{}) errors.Error
+	// Update TLS or node-to-node encryption settings.
+	SetConnectionSecurityConfig(certFile string, encryptNodeToNodeComms bool)
 }
 
 // It would be convenient to use datastore/Credentials here, but that causes an import circularity,
